@@ -1,10 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JComponent;
-public class Slate extends JComponent {
+public class Slate extends JComponent{
     private Image image;
     private Graphics2D g2;
-    private int currentX, currentY, oldX, oldY;
+    private int currentX, currentY, oldX, oldY, brushSize = 5; //Default brush size is set to 5
+    private Stroke line = new BasicStroke(brushSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     public Slate() {
         setDoubleBuffered(false);
         addMouseListener(new MouseAdapter() {
@@ -18,6 +19,7 @@ public class Slate extends JComponent {
                 currentX = e.getX();
                 currentY = e.getY();
                 if (g2 != null) {
+                    g2.setStroke(line);
                     g2.drawLine(oldX, oldY, currentX, currentY);
                     repaint();
                     oldX = currentX;
@@ -26,6 +28,7 @@ public class Slate extends JComponent {
             }
         });
     }
+    /* Creates the canvas */
     protected void paintComponent(Graphics g) {
         if (image == null) {
             image = createImage(1920, 1080);
@@ -35,12 +38,14 @@ public class Slate extends JComponent {
         }
         g.drawImage(image, 0, 0, null);
     }
+    /* Function to clear the canvas */
     public void clear() {
         g2.setPaint(new Color(0x0a0e14));
         g2.fillRect(0, 0, 1920, 1080);
         g2.setPaint(new Color(0xc2d647));
         repaint();
     }
+    /* Methods to set the paint brush color */
     public void orange() {
         g2.setPaint(new Color(0xd85c14));
     }
@@ -55,5 +60,13 @@ public class Slate extends JComponent {
     }
     public void blue() {
         g2.setPaint(new Color(0x87cefa));
+    }
+    public void wiper() {
+        g2.setPaint(new Color(0x0a0e14));
+    }
+    /* Method to set the brush size from the slider value */
+    public void setSize(int size){
+        brushSize = size;
+        line = new BasicStroke(brushSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     }
 }

@@ -2,39 +2,70 @@ import java.awt.BorderLayout;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
-public class Main {
-    JButton clearBtn, whiteBtn, blueBtn, limeBtn, orangeBtn, yellowBtn;
-    Slate drawArea;
+public class Main {    
+    JSlider sizeSlider = new JSlider(2,100);
+    private JButton clearBtn, whiteBtn, blueBtn, limeBtn, orangeBtn, yellowBtn, wiperBtn;
+    private Slate drawArea;
+    private int lastSize = 5;
+    /* ActionListener for the controls (Buttons for COLORS) */
     ActionListener actionListener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == clearBtn) {
+            if (e.getSource() == clearBtn){
                 drawArea.clear();
-            } else if (e.getSource() == whiteBtn) {
+            }
+            else if (e.getSource() == whiteBtn){
                 drawArea.white();
-            } else if (e.getSource() == blueBtn) {
+                drawArea.setSize(lastSize);
+                sizeSlider.setValue(lastSize);
+            }
+            else if (e.getSource() == blueBtn){
                 drawArea.blue();
-            } else if (e.getSource() == limeBtn) {
+                drawArea.setSize(lastSize);
+                sizeSlider.setValue(lastSize);
+            }
+            else if (e.getSource() == limeBtn){
                 drawArea.lime();
-            } else if (e.getSource() == orangeBtn) {
+                drawArea.setSize(lastSize);
+                sizeSlider.setValue(lastSize);
+            }
+            else if (e.getSource() == orangeBtn){
                 drawArea.orange();
-            } else if (e.getSource() == yellowBtn) {
+                drawArea.setSize(lastSize);
+                sizeSlider.setValue(lastSize);
+            }
+            else if (e.getSource() == yellowBtn){
                 drawArea.yellow();
+                drawArea.setSize(lastSize);
+                sizeSlider.setValue(lastSize);
+            }
+            else if(e.getSource() == wiperBtn){
+                if(lastSize > sizeSlider.getValue()){
+                    lastSize = sizeSlider.getValue();
+                }
+                drawArea.wiper();
+                drawArea.setSize(75);
+                sizeSlider.setValue(75);
             }
         }
     };
-    public static void main(String[] args) {
-        new Main().show();
-    }
+    @SuppressWarnings("deprecation")
     public void show() {
-        
+        /*Setting up required JComponents */
         JFrame frame = new JFrame("Slate");
-        ImageIcon icon = new ImageIcon("slate.png");
-        frame.setIconImage(icon.getImage());
+        ImageIcon appicon = new ImageIcon("icons/appicon/slate.png");
+        ImageIcon blueIcon = new ImageIcon("icons/colors/blue.png");
+        ImageIcon greenIcon = new ImageIcon("icons/colors/lime.png");
+        ImageIcon orangeIcon = new ImageIcon("icons/colors/orange.png");
+        ImageIcon yellowIcon = new ImageIcon("icons/colors/yellow.png");
+        ImageIcon whiteIcon = new ImageIcon("icons/colors/white.png");
         Container content = frame.getContentPane();
+        JPanel controls = new JPanel();
+        JPanel topPanel = new JPanel();
+        frame.setIconImage(appicon.getImage());
         content.setLayout(new BorderLayout());
         drawArea = new Slate();
         content.add(drawArea, BorderLayout.CENTER);
-        JPanel controls = new JPanel();
+        /* Setting up clear button */
         clearBtn = new JButton("CLEAR");
         clearBtn.setFocusable(false);
         clearBtn.setBounds(440,15,50,27);
@@ -43,9 +74,10 @@ public class Main {
         clearBtn.setBackground(new Color(0xa074c4));
         clearBtn.setOpaque(false);
         clearBtn.setBorderPainted(false);
+        clearBtn.setBorder(BorderFactory.createEmptyBorder(7,0,0,0));
         clearBtn.addActionListener(actionListener);
-
-        whiteBtn = new JButton("WHITE");
+        /* Setting up white button */
+        whiteBtn = new JButton(whiteIcon);
         whiteBtn.setFocusable(false);
         whiteBtn.setBounds(440,15,50,27);
         whiteBtn.setFont(new Font("Calibri",Font.PLAIN,24));
@@ -54,8 +86,8 @@ public class Main {
         whiteBtn.setOpaque(false);
         whiteBtn.setBorderPainted(false);
         whiteBtn.addActionListener(actionListener);
-
-        blueBtn = new JButton("BLUE");
+        /* Setting up blue button */
+        blueBtn = new JButton(blueIcon);
         blueBtn.addActionListener(actionListener);
         blueBtn.setFocusable(false);
         blueBtn.setBounds(440,15,50,27);
@@ -64,8 +96,8 @@ public class Main {
         blueBtn.setBackground(new Color(0x87cefa));
         blueBtn.setOpaque(false);
         blueBtn.setBorderPainted(false);
-
-        limeBtn = new JButton("GREEN");
+        /* Setting up Green button */
+        limeBtn = new JButton(greenIcon);
         limeBtn.setFocusable(false);
         limeBtn.setBounds(440,15,50,27);
         limeBtn.setFont(new Font("Calibri",Font.PLAIN,24));
@@ -74,8 +106,8 @@ public class Main {
         limeBtn.setOpaque(false);
         limeBtn.setBorderPainted(false);
         limeBtn.addActionListener(actionListener);
-
-        orangeBtn = new JButton("ORANGE");
+        /* Setting up Orange button */
+        orangeBtn = new JButton(orangeIcon);
         orangeBtn.setFocusable(false);
         orangeBtn.setBounds(440,15,50,27);
         orangeBtn.setFont(new Font("Calibri",Font.PLAIN,24));
@@ -84,8 +116,8 @@ public class Main {
         orangeBtn.setOpaque(false);
         orangeBtn.setBorderPainted(false);
         orangeBtn.addActionListener(actionListener);
-
-        yellowBtn = new JButton("YELLOW");
+        /* Setting up Yellow button */
+        yellowBtn = new JButton(yellowIcon);
         yellowBtn.setFocusable(false);
         yellowBtn.setBounds(440,15,50,27);
         yellowBtn.setFont(new Font("Calibri",Font.PLAIN,24));
@@ -94,7 +126,19 @@ public class Main {
         yellowBtn.setOpaque(false);
         yellowBtn.setBorderPainted(false);
         yellowBtn.addActionListener(actionListener);
-        
+        /* Setting up Eraser button */
+        wiperBtn = new JButton("WIPER");
+        wiperBtn.setFocusable(false);
+        wiperBtn.setBounds(440,15,50,27);
+        wiperBtn.setFont(new Font("Calibri",Font.PLAIN,24));
+        wiperBtn.setForeground(new Color(0x6844ca));
+        wiperBtn.setBackground(new Color(0x6844ca));
+        wiperBtn.setOpaque(false);
+        wiperBtn.setBorderPainted(false);
+        wiperBtn.setBorder(BorderFactory.createEmptyBorder(7,0,0,0));
+        wiperBtn.addActionListener(actionListener);
+        /* Adding components to controls JPanel */
+        controls.add(wiperBtn);
         controls.add(limeBtn);
         controls.add(blueBtn);
         controls.add(whiteBtn);
@@ -103,23 +147,34 @@ public class Main {
         controls.add(clearBtn);
         controls.setBackground(new Color(0x00010a));
         content.add(controls, BorderLayout.SOUTH);
-
-
-        // Toolkit toolkit = Toolkit.getDefaultToolkit();
-        // Image image = toolkit.getImage("test.png");
-        // Cursor c = toolkit.createCustomCursor(image , new Point(frame.getX(),frame.getY()), "img");
-        // frame.setCursor (c);
-
-
-
-
-
+        /* Setting up the brush size slider and the top JPanel */        
+        sizeSlider.setBackground(new Color(0x00010a));
+        sizeSlider.setSnapToTicks(true);
+        sizeSlider.setPreferredSize(new Dimension(900, 20));
+        sizeSlider.setValue(5);
+        sizeSlider.setOpaque(false);
+        sizeSlider.addChangeListener(e -> sliderChanged());
+        topPanel.add(sizeSlider);
+        topPanel.setBackground(new Color(0x00010a));
+        topPanel.setBorder(null);
+        topPanel.setFocusable(false);
+        content.add(topPanel, BorderLayout.NORTH);
+        /* Setting up the JFrame */
+        frame.setCursor(Cursor.HAND_CURSOR); //This method of setting cursor is depricated.
         frame.setSize(1200, 999);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-
-
+    }
+    /* Function that sets the brush size from the slider */
+    public void sliderChanged(){
+        drawArea.setSize(sizeSlider.getValue());
+        if(sizeSlider.getValue() < 75){
+            lastSize = sizeSlider.getValue();
+        }
+    }
+    /* Main method */
+    public static void main(String[] args) {
+        new Main().show();
     }
 }
