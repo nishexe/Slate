@@ -34,15 +34,15 @@ public class Slate extends JComponent{
             image = createImage(1920, 1080);
             g2 = (Graphics2D) image.getGraphics();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            clear();
+            clear(0xc2d647); //Default brush color(LIME)
         }
         g.drawImage(image, 0, 0, null);
     }
     /* Function to clear the canvas */
-    public void clear() {
+    public void clear(int hex) {
         g2.setPaint(new Color(0x0a0e14));
         g2.fillRect(0, 0, 1920, 1080);
-        g2.setPaint(new Color(0xc2d647));
+        g2.setPaint(new Color(hex));
         repaint();
     }
     /* Methods to set the paint brush color */
