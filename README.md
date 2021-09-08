@@ -3,7 +3,7 @@
 
 ## Versoin 1.1
 **Changelog**
-- Added keyboard shortcut.
+- Added keyboard shortcuts.
   - w for color white.
   - b for color blue.
   - o for color orange.
