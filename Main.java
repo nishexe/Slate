@@ -145,7 +145,12 @@ public class Main{
                         toolLabel.setBackground(new Color(0x6844ca));
                 break;
                 case 'C':
-                        drawArea.clear(hexArr[lastColor]);
+                        if(toolLabel.getText()=="WIPER"){
+                            drawArea.clear(0x0a0e14);
+                        }
+                        else{
+                            drawArea.clear(hexArr[lastColor]);
+                        }
                 break;
                 case '1':
                 if(sizeSlider.getValue()>1){
