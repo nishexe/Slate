@@ -1,6 +1,27 @@
 # Slate
 
 
+## Versoin 1.1
+**Changelog**
+- Added keyboard shortcut.
+  - w for color white.
+  - b for color blue.
+  - o for color orange.
+  - y for color yellow.
+  - g for color green/lime
+  - Shift + W for Wiper.
+  - Shift + C to clear canvas.
+  - 1 for decrementation of brush size in steps of 1px.
+  - 2 for incrementation of brush size in steps of 1px.
+  - Shift + 1 for decrementation of brush size in steps of 5x.
+  - Shift + 2 for incrementation of brush size in steps of 5px.
+- Added label to show brush size corresponding with the brush size slider value.
+- Added label to show current selected tool, next to the brush size label.
+- Clear functions no longer reverts back to dfault lime color, instead remembers the last color used.
+
+![version 1 1](https://user-images.githubusercontent.com/61022113/132447290-8659f15f-bfd4-4585-be4b-35e153f1a596.png)
+
+
 
 ## Version 1.0
 **Changelog**
