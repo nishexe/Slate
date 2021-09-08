@@ -13,7 +13,7 @@
   - Shift + C to clear canvas.
   - 1 for decrementation of brush size in steps of 1px.
   - 2 for incrementation of brush size in steps of 1px.
-  - Shift + 1 for decrementation of brush size in steps of 5x.
+  - Shift + 1 for decrementation of brush size in steps of 5px.
   - Shift + 2 for incrementation of brush size in steps of 5px.
 - Added label to show brush size corresponding with the brush size slider value.
 - Added label to show current selected tool, next to the brush size label.
