@@ -17,7 +17,7 @@
   - Shift + 2 for incrementation of brush size in steps of 5px.
 - Added label to show brush size corresponding with the brush size slider value.
 - Added label to show current selected tool, next to the brush size label.
-- Clear functions no longer reverts back to dfault lime color, instead remembers the last color used.
+- Clear function no longer reverts back to dfault lime color, instead remembers the last used color.
 
 ![version 1 1](https://user-images.githubusercontent.com/61022113/132447290-8659f15f-bfd4-4585-be4b-35e153f1a596.png)
 
