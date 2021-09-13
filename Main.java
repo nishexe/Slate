@@ -3,73 +3,88 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 public class Main{
+    /*Setting up required JComponents */
     private JSlider sizeSlider = new JSlider(1,100);
     private JButton clearBtn, whiteBtn, blueBtn, limeBtn, orangeBtn, yellowBtn, wiperBtn;
     private Slate drawArea;
     private int lastSize = 5;
-    private int brushSize = lastSize;
-    private JLabel sizeLabel = new JLabel();
+    private JPanel controls = new JPanel();
+    private JPanel topPanel = new JPanel();
     private JLabel toolLabel = new JLabel();
-    /* The below array is required to set the last used color after the clear canvas function is called */
-    private int[] hexArr = {
-        0xc2d647,/* 0 LIME */
-        0x87cefa,/* 1 BLUE */
-        0xFFFFFF,/* 2 WHITE */
-        0xd85c14,/* 3 ORANGE */
-        0xffb454,/* 4 YELLOW */
-    };
-    private int lastColor = 0;
-    /* :) */
+    private JLabel sizeLabel = new JLabel();
+    private JFrame frame = new JFrame("Slate");
+    private Container content = frame.getContentPane();
+    private ImageIcon appIcon = new ImageIcon("icons/appicon/slate.png");
+    private ImageIcon blueIcon = new ImageIcon("icons/colors/blue.png");
+    private ImageIcon limeIcon = new ImageIcon("icons/colors/lime.png");
+    private ImageIcon orangeIcon = new ImageIcon("icons/colors/orange.png");
+    private ImageIcon yellowIcon = new ImageIcon("icons/colors/yellow.png");
+    private ImageIcon whiteIcon = new ImageIcon("icons/colors/white.png");
+    /* Enum to store colors hexadeicmal values */
+    enum Colors{
+        LIME(0xc2d647),
+        BLUE(0x87cefa),
+        WHITE(0xFFFFFF),
+        ORANGE(0xd85c14),
+        YELLOW(0xffb454),
+        BACKGROUND(0x0a0e14);
+
+        int HEX_VAL;
+        Colors(int HEX_VAL){
+            this.HEX_VAL = HEX_VAL;
+        }
+    }
+    private int lastColor = Colors.LIME.HEX_VAL; // Default brush color is lime
     /* ActionListener for the controls (Buttons for COLORS) */
     ActionListener actionListener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn){
-                drawArea.clear(hexArr[lastColor]);
+                if(toolLabel.getText()=="WIPER"){
+                    drawArea.clear(Colors.BACKGROUND.HEX_VAL);
+                }
+                else{
+                    drawArea.clear(lastColor);
+                }
             }
             else if (e.getSource() == whiteBtn){
                 drawArea.white();
                 drawArea.setSize(lastSize);
                 sizeSlider.setValue(lastSize);
                 toolLabel.setText("WHITE");
-                toolLabel.setForeground(Color.WHITE);
-                toolLabel.setBackground(Color.WHITE);
-                lastColor = 2;
+                toolLabel.setForeground(new Color(Colors.WHITE.HEX_VAL));
+                lastColor = Colors.WHITE.HEX_VAL;
             }
             else if (e.getSource() == blueBtn){
                 drawArea.blue();
                 drawArea.setSize(lastSize);
                 sizeSlider.setValue(lastSize);
                 toolLabel.setText("BLUE");
-                toolLabel.setForeground(new Color(0x87cefa));
-                toolLabel.setBackground(new Color(0x87cefa));
-                lastColor = 1;
+                toolLabel.setForeground(new Color(Colors.BLUE.HEX_VAL));
+                lastColor = Colors.BLUE.HEX_VAL;
             }
             else if (e.getSource() == limeBtn){
                 drawArea.lime();
                 drawArea.setSize(lastSize);
                 sizeSlider.setValue(lastSize);
                 toolLabel.setText("LIME");
-                toolLabel.setForeground(new Color(0xc2d647));
-                toolLabel.setBackground(new Color(0xc2d647));
-                lastColor = 0;
+                toolLabel.setForeground(new Color(Colors.LIME.HEX_VAL));
+                lastColor = Colors.LIME.HEX_VAL;
             }
             else if (e.getSource() == orangeBtn){
                 drawArea.orange();
                 drawArea.setSize(lastSize);
                 sizeSlider.setValue(lastSize);
                 toolLabel.setText("ORANGE");
-                toolLabel.setForeground(new Color(0xd85c14));
-                toolLabel.setBackground(new Color(0xd85c14));
-                lastColor = 3;
+                toolLabel.setForeground(new Color(Colors.ORANGE.HEX_VAL));
+                lastColor = Colors.ORANGE.HEX_VAL;
             }
             else if (e.getSource() == yellowBtn){
                 drawArea.yellow();
                 drawArea.setSize(lastSize);
                 sizeSlider.setValue(lastSize);
                 toolLabel.setText("YELLOW");
-                toolLabel.setForeground(new Color(0xffb454));
-                toolLabel.setBackground(new Color(0xffb454));
-                lastColor = 4;
+                toolLabel.setForeground(new Color(Colors.YELLOW.HEX_VAL));
+                lastColor = Colors.YELLOW.HEX_VAL;
             }
             else if(e.getSource() == wiperBtn){
                 if(lastSize > sizeSlider.getValue()){
@@ -80,7 +95,6 @@ public class Main{
                 sizeSlider.setValue(75);
                 toolLabel.setText("WIPER");
                 toolLabel.setForeground(new Color(0x6844ca));
-                toolLabel.setBackground(new Color(0x6844ca));
             }
         }
     };
@@ -93,45 +107,40 @@ public class Main{
                         drawArea.setSize(lastSize);
                         sizeSlider.setValue(lastSize);
                         toolLabel.setText("WHITE");
-                        toolLabel.setForeground(Color.WHITE);
-                        toolLabel.setBackground(Color.WHITE);
-                        lastColor = 2;
+                        toolLabel.setForeground(new Color(Colors.WHITE.HEX_VAL));
+                        lastColor = Colors.WHITE.HEX_VAL;
                 break;
                 case 'b':
                         drawArea.blue();
                         drawArea.setSize(lastSize);
                         sizeSlider.setValue(lastSize);
                         toolLabel.setText("BLUE");
-                        toolLabel.setForeground(new Color(0x87cefa));
-                        toolLabel.setBackground(new Color(0x87cefa));
-                        lastColor = 1;
+                        toolLabel.setForeground(new Color(Colors.BLUE.HEX_VAL));
+                        lastColor = Colors.YELLOW.HEX_VAL;
                 break;
                 case 'g':
                         drawArea.lime();
                         drawArea.setSize(lastSize);
                         sizeSlider.setValue(lastSize);
                         toolLabel.setText("LIME");
-                        toolLabel.setForeground(new Color(0xc2d647));
-                        toolLabel.setBackground(new Color(0xc2d647));
-                        lastColor = 0;
+                        toolLabel.setForeground(new Color(Colors.LIME.HEX_VAL));
+                        lastColor = Colors.LIME.HEX_VAL;
                 break;
                 case 'y':
                         drawArea.yellow();
                         drawArea.setSize(lastSize);
                         sizeSlider.setValue(lastSize);
                         toolLabel.setText("YELLOW");
-                        toolLabel.setForeground(new Color(0xffb454));
-                        toolLabel.setBackground(new Color(0xffb454));
-                        lastColor = 4;
+                        toolLabel.setForeground(new Color(Colors.YELLOW.HEX_VAL));
+                        lastColor = Colors.YELLOW.HEX_VAL;
                 break;
                 case 'o':
                         drawArea.orange();
                         drawArea.setSize(lastSize);
                         sizeSlider.setValue(lastSize);
                         toolLabel.setText("ORANGE");
-                        toolLabel.setForeground(new Color(0xd85c14));
-                        toolLabel.setBackground(new Color(0xd85c14));
-                        lastColor = 3;
+                        toolLabel.setForeground(new Color(Colors.ORANGE.HEX_VAL));
+                        lastColor = Colors.ORANGE.HEX_VAL;;
                 break;
                 case 'W':
                         if(lastSize > sizeSlider.getValue()){
@@ -142,14 +151,13 @@ public class Main{
                         sizeSlider.setValue(75);
                         toolLabel.setText("WIPER");
                         toolLabel.setForeground(new Color(0x6844ca));
-                        toolLabel.setBackground(new Color(0x6844ca));
                 break;
                 case 'C':
                         if(toolLabel.getText()=="WIPER"){
-                            drawArea.clear(0x0a0e14);
+                            drawArea.clear(Colors.BACKGROUND.HEX_VAL);
                         }
                         else{
-                            drawArea.clear(hexArr[lastColor]);
+                            drawArea.clear(lastColor);
                         }
                 break;
                 case '1':
@@ -185,18 +193,8 @@ public class Main{
     };
     @SuppressWarnings("deprecation")
     public void show() {
-        /*Setting up required JComponents */
-        JFrame frame = new JFrame("Slate");
-        ImageIcon appicon = new ImageIcon("icons/appicon/slate.png");
-        ImageIcon blueIcon = new ImageIcon("icons/colors/blue.png");
-        ImageIcon greenIcon = new ImageIcon("icons/colors/lime.png");
-        ImageIcon orangeIcon = new ImageIcon("icons/colors/orange.png");
-        ImageIcon yellowIcon = new ImageIcon("icons/colors/yellow.png");
-        ImageIcon whiteIcon = new ImageIcon("icons/colors/white.png");
-        Container content = frame.getContentPane();
-        JPanel controls = new JPanel();
-        JPanel topPanel = new JPanel();
-        frame.setIconImage(appicon.getImage());
+        
+        frame.setIconImage(appIcon.getImage());
         content.setLayout(new BorderLayout());
         drawArea = new Slate();
         content.add(drawArea, BorderLayout.CENTER);
@@ -214,8 +212,8 @@ public class Main{
         whiteBtn = new JButton(whiteIcon);
         whiteBtn.setFocusable(false);
         whiteBtn.setFont(new Font("Calibri",Font.PLAIN,24));
-        whiteBtn.setForeground(Color.white);
-        whiteBtn.setBackground(Color.white);
+        whiteBtn.setForeground(new Color(Colors.WHITE.HEX_VAL));
+        whiteBtn.setBackground(new Color(Colors.WHITE.HEX_VAL));
         whiteBtn.setOpaque(false);
         whiteBtn.setBorderPainted(false);
         whiteBtn.addActionListener(actionListener);
@@ -224,16 +222,16 @@ public class Main{
         blueBtn.addActionListener(actionListener);
         blueBtn.setFocusable(false);
         blueBtn.setFont(new Font("Calibri",Font.PLAIN,24));
-        blueBtn.setForeground(new Color(0x87cefa));
-        blueBtn.setBackground(new Color(0x87cefa));
+        blueBtn.setForeground(new Color(Colors.BLUE.HEX_VAL));
+        blueBtn.setBackground(new Color(Colors.BLUE.HEX_VAL));
         blueBtn.setOpaque(false);
         blueBtn.setBorderPainted(false);
         /* Setting up Green button */
-        limeBtn = new JButton(greenIcon);
+        limeBtn = new JButton(limeIcon);
         limeBtn.setFocusable(false);
         limeBtn.setFont(new Font("Calibri",Font.PLAIN,24));
-        limeBtn.setForeground(new Color(0xc2d647));
-        limeBtn.setBackground(new Color(0xc2d647));
+        limeBtn.setForeground(new Color(Colors.LIME.HEX_VAL));
+        limeBtn.setBackground(new Color(Colors.LIME.HEX_VAL));
         limeBtn.setOpaque(false);
         limeBtn.setBorderPainted(false);
         limeBtn.addActionListener(actionListener);
@@ -241,8 +239,8 @@ public class Main{
         orangeBtn = new JButton(orangeIcon);
         orangeBtn.setFocusable(false);
         orangeBtn.setFont(new Font("Calibri",Font.PLAIN,24));
-        orangeBtn.setForeground(new Color(0xd85c14));
-        orangeBtn.setBackground(new Color(0xd85c14));
+        orangeBtn.setForeground(new Color(Colors.ORANGE.HEX_VAL));
+        orangeBtn.setBackground(new Color(Colors.ORANGE.HEX_VAL));
         orangeBtn.setOpaque(false);
         orangeBtn.setBorderPainted(false);
         orangeBtn.addActionListener(actionListener);
@@ -250,8 +248,8 @@ public class Main{
         yellowBtn = new JButton(yellowIcon);
         yellowBtn.setFocusable(false);
         yellowBtn.setFont(new Font("Calibri",Font.PLAIN,24));
-        yellowBtn.setForeground(new Color(0xffb454));
-        yellowBtn.setBackground(new Color(0xffb454));
+        yellowBtn.setForeground(new Color(Colors.YELLOW.HEX_VAL));
+        yellowBtn.setBackground(new Color(Colors.YELLOW.HEX_VAL));
         yellowBtn.setOpaque(false);
         yellowBtn.setBorderPainted(false);
         yellowBtn.addActionListener(actionListener);
@@ -276,17 +274,15 @@ public class Main{
         controls.setBackground(new Color(0x00010a));
         content.add(controls, BorderLayout.SOUTH);
         /* Setting up the sizeLabel that shows the corresponding value of the brush size slider */
-        sizeLabel.setText(Integer.toString(brushSize)+"px");
+        sizeLabel.setText(Integer.toString(lastSize)+"px");
         sizeLabel.setFont(new Font("Calibri",Font.PLAIN,19));
         sizeLabel.setBorder(BorderFactory.createEmptyBorder(3,0,0,0));
         sizeLabel.setForeground(new Color(0x636a72));
-        sizeLabel.setBackground(new Color(0x636a72));
         /* Setting up the colorLabel that shows current selected color */
         toolLabel.setText("LIME");
         toolLabel.setFont(new Font("Calibri",Font.PLAIN,13));
         toolLabel.setBorder(BorderFactory.createEmptyBorder(5,2,0,0));
-        toolLabel.setForeground(new Color(0xc2d647));
-        toolLabel.setBackground(new Color(0xc2d647));
+        toolLabel.setForeground(new Color(Colors.LIME.HEX_VAL));
         /* Setting up the brush size slider and the top JPanel */        
         sizeSlider.setBackground(new Color(0x00010a));
         sizeSlider.setSnapToTicks(true);
