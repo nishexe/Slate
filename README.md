@@ -1,7 +1,7 @@
 # Slate
 
 
-## Versoin 1.1
+## Version 1.1
 **Changelog**
 - Added keyboard shortcuts.
   - w for color white.
