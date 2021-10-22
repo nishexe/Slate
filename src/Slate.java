@@ -1,14 +1,11 @@
 package src;
-// import java.io.*;
 import java.awt.*;
-// import javax.imageio.*;
-// import java.awt.image.*;
 import java.awt.event.*;
 import javax.swing.JComponent;
 public class Slate extends JComponent{
     private Image image;
     private Graphics2D canvas;
-    private int currentX, currentY, oldX, oldY, brushSize = 5; //Default brush size is set to 5
+    private int currentX, currentY, oldX, oldY, brushSize = 3; //Default brush size is set to 3
     private Stroke line = new BasicStroke(brushSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     public Slate() {
         setDoubleBuffered(false);
@@ -75,18 +72,4 @@ public class Slate extends JComponent{
         brushSize = size;
         line = new BasicStroke(brushSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
     }
-    /* Method to export the rendered canvas as png file */
-    /* Still in testing phase */
-    // public void draw(Graphics graphic2d){
-    //     graphic2d = canvas;
-    // }
-    /* public void saveImage() {
-        try{
-           File output = new File("SavedImages/output.png");
-           ImageIO.write((RenderedImage) image, "png", output);
-        }
-        catch(IOException log){
-           System.out.println(log);
-        }
-    } */
 }

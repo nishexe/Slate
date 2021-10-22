@@ -8,7 +8,7 @@ public class Main{
     private JSlider sizeSlider = new JSlider(1,100);
     private JButton clearBtn, whiteBtn, blueBtn, limeBtn, orangeBtn, yellowBtn, wiperBtn;
     private Slate drawArea;
-    private int lastSize = 5;
+    private int brushSize = 3;
     private JPanel controls = new JPanel();
     private JPanel topPanel = new JPanel();
     private JLabel toolLabel = new JLabel();
@@ -49,47 +49,47 @@ public class Main{
             }
             else if (e.getSource() == whiteBtn){
                 drawArea.white();
-                drawArea.setSize(lastSize);
-                sizeSlider.setValue(lastSize);
+                drawArea.setSize(brushSize);
+                sizeSlider.setValue(brushSize);
                 toolLabel.setText("WHITE");
                 toolLabel.setForeground(new Color(Colors.WHITE.HEX_VAL));
                 lastColor = Colors.WHITE.HEX_VAL;
             }
             else if (e.getSource() == blueBtn){
                 drawArea.blue();
-                drawArea.setSize(lastSize);
-                sizeSlider.setValue(lastSize);
+                drawArea.setSize(brushSize);
+                sizeSlider.setValue(brushSize);
                 toolLabel.setText("BLUE");
                 toolLabel.setForeground(new Color(Colors.BLUE.HEX_VAL));
                 lastColor = Colors.BLUE.HEX_VAL;
             }
             else if (e.getSource() == limeBtn){
                 drawArea.lime();
-                drawArea.setSize(lastSize);
-                sizeSlider.setValue(lastSize);
+                drawArea.setSize(brushSize);
+                sizeSlider.setValue(brushSize);
                 toolLabel.setText("LIME");
                 toolLabel.setForeground(new Color(Colors.LIME.HEX_VAL));
                 lastColor = Colors.LIME.HEX_VAL;
             }
             else if (e.getSource() == orangeBtn){
                 drawArea.orange();
-                drawArea.setSize(lastSize);
-                sizeSlider.setValue(lastSize);
+                drawArea.setSize(brushSize);
+                sizeSlider.setValue(brushSize);
                 toolLabel.setText("ORANGE");
                 toolLabel.setForeground(new Color(Colors.ORANGE.HEX_VAL));
                 lastColor = Colors.ORANGE.HEX_VAL;
             }
             else if (e.getSource() == yellowBtn){
                 drawArea.yellow();
-                drawArea.setSize(lastSize);
-                sizeSlider.setValue(lastSize);
+                drawArea.setSize(brushSize);
+                sizeSlider.setValue(brushSize);
                 toolLabel.setText("YELLOW");
                 toolLabel.setForeground(new Color(Colors.YELLOW.HEX_VAL));
                 lastColor = Colors.YELLOW.HEX_VAL;
             }
             else if(e.getSource() == wiperBtn){
-                if(lastSize > sizeSlider.getValue()){
-                    lastSize = sizeSlider.getValue();
+                if(brushSize > sizeSlider.getValue()){
+                    brushSize = sizeSlider.getValue();
                 }
                 drawArea.wiper();
                 drawArea.setSize(75);
@@ -105,47 +105,47 @@ public class Main{
             switch(e.getKeyChar()){
                 case 'w':
                         drawArea.white();
-                        drawArea.setSize(lastSize);
-                        sizeSlider.setValue(lastSize);
+                        drawArea.setSize(brushSize);
+                        sizeSlider.setValue(brushSize);
                         toolLabel.setText("WHITE");
                         toolLabel.setForeground(new Color(Colors.WHITE.HEX_VAL));
                         lastColor = Colors.WHITE.HEX_VAL;
                 break;
                 case 'b':
                         drawArea.blue();
-                        drawArea.setSize(lastSize);
-                        sizeSlider.setValue(lastSize);
+                        drawArea.setSize(brushSize);
+                        sizeSlider.setValue(brushSize);
                         toolLabel.setText("BLUE");
                         toolLabel.setForeground(new Color(Colors.BLUE.HEX_VAL));
                         lastColor = Colors.YELLOW.HEX_VAL;
                 break;
                 case 'g':
                         drawArea.lime();
-                        drawArea.setSize(lastSize);
-                        sizeSlider.setValue(lastSize);
+                        drawArea.setSize(brushSize);
+                        sizeSlider.setValue(brushSize);
                         toolLabel.setText("LIME");
                         toolLabel.setForeground(new Color(Colors.LIME.HEX_VAL));
                         lastColor = Colors.LIME.HEX_VAL;
                 break;
                 case 'y':
                         drawArea.yellow();
-                        drawArea.setSize(lastSize);
-                        sizeSlider.setValue(lastSize);
+                        drawArea.setSize(brushSize);
+                        sizeSlider.setValue(brushSize);
                         toolLabel.setText("YELLOW");
                         toolLabel.setForeground(new Color(Colors.YELLOW.HEX_VAL));
                         lastColor = Colors.YELLOW.HEX_VAL;
                 break;
                 case 'o':
                         drawArea.orange();
-                        drawArea.setSize(lastSize);
-                        sizeSlider.setValue(lastSize);
+                        drawArea.setSize(brushSize);
+                        sizeSlider.setValue(brushSize);
                         toolLabel.setText("ORANGE");
                         toolLabel.setForeground(new Color(Colors.ORANGE.HEX_VAL));
                         lastColor = Colors.ORANGE.HEX_VAL;;
                 break;
                 case 'W':
-                        if(lastSize > sizeSlider.getValue()){
-                            lastSize = sizeSlider.getValue();
+                        if(brushSize > sizeSlider.getValue()){
+                            brushSize = sizeSlider.getValue();
                         }
                         drawArea.wiper();
                         drawArea.setSize(75);
@@ -167,13 +167,13 @@ public class Main{
                 }
                 break;
                 case '2':
-                if(lastSize<100){
+                if(brushSize<100){
                     sizeSlider.setValue(sizeSlider.getValue()+1);
                 }
                 break;
                 case '3':
-                sizeSlider.setValue(5);
-                lastSize = 5;
+                sizeSlider.setValue(3);
+                brushSize = 3;
                 break;
                 case '!':
                 if(sizeSlider.getValue()>5){
@@ -181,7 +181,7 @@ public class Main{
                 }
                 break;
                 case '@':
-                if(lastSize<100){
+                if(brushSize<100){
                     sizeSlider.setValue(sizeSlider.getValue()+5);
                 }
                 break;
@@ -275,7 +275,7 @@ public class Main{
         controls.setBackground(new Color(0x00010a));
         content.add(controls, BorderLayout.SOUTH);
         /* Setting up the sizeLabel that shows the corresponding value of the brush size slider */
-        sizeLabel.setText(Integer.toString(lastSize)+"px");
+        sizeLabel.setText(Integer.toString(brushSize)+"px");
         sizeLabel.setFont(new Font("Calibri",Font.PLAIN,19));
         sizeLabel.setBorder(BorderFactory.createEmptyBorder(3,0,0,0));
         sizeLabel.setForeground(new Color(0x636a72));
@@ -288,7 +288,7 @@ public class Main{
         sizeSlider.setBackground(new Color(0x00010a));
         sizeSlider.setSnapToTicks(true);
         sizeSlider.setPreferredSize(new Dimension(900, 20));
-        sizeSlider.setValue(5);
+        sizeSlider.setValue(3);
         sizeSlider.setOpaque(false);
         sizeSlider.addChangeListener(e -> sliderChanged());
         topPanel.add(sizeSlider);
@@ -323,7 +323,7 @@ public class Main{
         drawArea.setSize(sizeSlider.getValue());
         sizeLabel.setText(Integer.toString(sizeSlider.getValue())+"px");
         if(sizeSlider.getValue() < 75){
-            lastSize = sizeSlider.getValue();
+            brushSize = sizeSlider.getValue();
         }
     }
     /* Main method */
